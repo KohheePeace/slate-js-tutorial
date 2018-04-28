@@ -1,12 +1,12 @@
 # README
 This boilerplate includes...
 
-* Webpack
+## Webpack
 "webpack": "^4.6.0",
 "webpack-cli": "^2.0.15",
 "webpack-dev-server": "^3.1.3"
 
-* Eslint
+## Eslint
 "eslint": "^4.9.0",
 "eslint-config-airbnb": "^16.1.0",
 "eslint-loader": "^2.0.0",
@@ -14,7 +14,7 @@ This boilerplate includes...
 "eslint-plugin-jsx-a11y": "^6.0.3",
 "eslint-plugin-react": "^7.7.0",
 
-* Babel
+## Babel
 "babel-core": "^6.26.2",
 "babel-eslint": "8",
 "babel-loader": "^7.1.4",
@@ -22,6 +22,6 @@ This boilerplate includes...
 "babel-preset-react": "^6.24.1",
 "babel-preset-stage-2": "^6.24.1",
 
-* React 
+## React 
 "react": "^16.3.2",
 "react-dom": "^16.3.2"
