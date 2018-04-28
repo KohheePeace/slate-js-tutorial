@@ -25,8 +25,18 @@
   },
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.43",
+    "immutable": "^3.8.2",
     "material-ui": "^1.0.0-beta.43",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "slate": "^0.33.5",
+    "slate-auto-replace": "^0.9.0",
+    "slate-edit-blockquote": "^0.6.1",
+    "slate-edit-code": "^0.15.0",
+    "slate-edit-list": "^0.11.3",
+    "slate-prism": "^0.5.0",
+    "slate-react": "^0.12.5",
+    "slate-schema-violations": "^0.1.9"
   }
 }
