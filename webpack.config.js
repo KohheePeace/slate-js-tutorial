@@ -15,7 +15,15 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: [
+          { loader: 'babel-loader' },
+          {
+            loader: 'eslint-loader',
+            options: {
+              fix: true,
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
@@ -28,6 +36,22 @@ module.exports = {
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
             },
           },
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+            },
+          },
+          {
+            loader: "sass-loader"
+          }
         ],
       },
     ],
