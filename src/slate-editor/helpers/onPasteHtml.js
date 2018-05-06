@@ -5,7 +5,7 @@ import rules from '../rules';
 const serializer = new Html({ rules });
 
 const onPasteHtml = (e, change) => {
-  if (e.shiftKey) return null;
+  if (e.shiftKey) return;
   const transfer = getEventTransfer(e);
   const { html, rich, text } = transfer;
   if (rich) {

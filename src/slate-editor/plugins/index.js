@@ -33,7 +33,7 @@ const plugins = [
     typeItem: BLOCKS.CHECK_LIST_ITEM,
   }),
   SlatePrism({
-    onlyIn: (node => node.type === BLOCKS.CODE),
+    onlyIn: (node => node.type === BLOCKS.CODE_BLOCK),
     getSyntax: ((node) => {
       const syntax = node.data.get('syntax');
       const index = Object.keys(componentIndex).indexOf(syntax);

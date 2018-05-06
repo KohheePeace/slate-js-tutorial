@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Types from 'slate-prop-types';
 import Select from 'react-select';
 import Input from 'material-ui/Input';
 import '!style-loader!css-loader!react-select/dist/react-select.css'; /* eslint-disable-line */
@@ -11,19 +9,11 @@ import s from './CodeBlock.scss';
 const syntaxList = Object.keys(languages).map(syntax => ({ label: syntax, value: syntax }));
 
 export default class CodeBlock extends React.PureComponent {
-  static propTypes = {
-    node: Types.node.isRequired,
-    attributes: PropTypes.shape({}).isRequired,
-    editor: PropTypes.shape({}).isRequired,
-    children: PropTypes.node.isRequired,
-  };
-
   onFilenameChange = (e) => {
     const filename = e.target.value;
     const { node, editor } = this.props;
 
-    editor.change(c =>
-      c.setNodeByKey(node.key, { data: { filename } }));
+    editor.change(c => c.setNodeByKey(node.key, { data: { filename } }));
   }
 
   onSyntaxChange = (select) => {
@@ -51,7 +41,6 @@ export default class CodeBlock extends React.PureComponent {
               <span>{filename.trim()}</span>
               :
               <Input
-                onBlur={this.onBlur}
                 type="text"
                 value={filename || ''}
                 placeholder="filename"
@@ -62,7 +51,6 @@ export default class CodeBlock extends React.PureComponent {
           {!readOnly &&
             <div className={s.syntax}>
               <Select
-                onBlur={this.onBlur}
                 placeholder="syntax"
                 name="language"
                 value={syntax}

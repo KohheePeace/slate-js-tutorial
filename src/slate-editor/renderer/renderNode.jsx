@@ -30,7 +30,7 @@ const renderNode = (props) => {
       return <Heading {...props} />;
     case BLOCKS.HEADING_6:
       return <Heading {...props} />;
-    case BLOCKS.CODE:
+    case BLOCKS.CODE_BLOCK:
       return <CodeBlock {...props} />;
     case BLOCKS.CODE_LINE:
       return <div {...attributes}>{children}</div>;

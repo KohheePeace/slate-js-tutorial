@@ -1,4 +1,5 @@
 import getVideoId from 'get-video-id';
+import BLOCKS from '../constants/blocks';
 
 const insertVideo = (change, url) => {
   const videoId = getVideoId(url).id;
@@ -13,7 +14,7 @@ const insertVideo = (change, url) => {
   }
 
   change.insertBlock({
-    type: 'video',
+    type: BLOCKS.VIDEO,
     isVoid: true,
     data: { src, url },
   });

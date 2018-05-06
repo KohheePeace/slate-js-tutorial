@@ -9,14 +9,13 @@ import SlateEditList from 'slate-edit-list';
 import SlateEditCode from 'slate-edit-code';
 import SlateEditBlockquote from 'slate-edit-blockquote';
 
+import Button from 'material-ui/Button';
 import FormatBold from '@material-ui/icons/FormatBold';
 import FormatItalic from '@material-ui/icons/FormatItalic';
 import BorderColor from '@material-ui/icons/BorderColor';
 import FormatUnderlined from '@material-ui/icons/FormatUnderlined';
 import StrikethroughS from '@material-ui/icons/StrikethroughS';
 import Code from '@material-ui/icons/Code';
-
-
 import FormatQuote from '@material-ui/icons/FormatQuote';
 import GridOn from '@material-ui/icons/GridOn';
 import FormatListBulleted from '@material-ui/icons/FormatListBulleted';
@@ -82,65 +81,60 @@ function Navbar(props) {
     const { value } = props;
     const change = value.change();
 
-    const {
-      DEFAULT, HEADING_1, HEADING_2, HEADING_3, HR, BLOCKQUOTE, CODE,
-      TABLE, UL_LIST, OL_LIST, CHECK_LIST,
-    } = BLOCKS;
-
     switch (type) {
-      case HEADING_1:
-      case HEADING_2:
-      case HEADING_3:
+      case BLOCKS.HEADING_1:
+      case BLOCKS.HEADING_2:
+      case BLOCKS.HEADING_3:
       {
         const isActive = hasBlock(type);
-        change.setBlocks(isActive ? DEFAULT : type);
+        change.setBlocks(isActive ? BLOCKS.DEFAULT : type);
         break;
       }
-      case HR: {
+      case BLOCKS.HR: {
         change.setBlocks({ type, isVoid: true });
         break;
       }
-      case BLOCKQUOTE: {
+      case BLOCKS.BLOCKQUOTE: {
         const isActive = BlockquotePlugin.utils.isSelectionInBlockquote(value);
         return isActive ?
           props.onChange(BlockquotePlugin.changes.unwrapBlockquote(change))
           :
           props.onChange(BlockquotePlugin.changes.wrapInBlockquote(change));
       }
-      case CODE: {
+      case BLOCKS.CODE_BLOCk: {
         CodePlugin.changes.toggleCodeBlock(change);
         break;
       }
-      case TABLE: {
+      case BLOCKS.TABLE: {
         const isActive = TablePlugin.utils.isSelectionInTable(value);
         return isActive ?
           props.onChange(TablePlugin.changes.removeTable(change))
           :
           props.onChange(TablePlugin.changes.insertTable(change));
       }
-      case UL_LIST: {
+      case BLOCKS.UL_LIST: {
         const isActive = ListPlugin.utils.isSelectionInList(value)
-                    && ListPlugin.utils.getCurrentList(value).type === UL_LIST;
+                    && ListPlugin.utils.getCurrentList(value).type === type;
         return isActive ?
           props.onChange(ListPlugin.changes.unwrapList(change))
           :
-          props.onChange(ListPlugin.changes.wrapInList(change, UL_LIST));
+          props.onChange(ListPlugin.changes.wrapInList(change, type));
       }
-      case OL_LIST: {
+      case BLOCKS.OL_LIST: {
         const isActive = ListPlugin.utils.isSelectionInList(value)
-                    && ListPlugin.utils.getCurrentList(value).type === OL_LIST;
+                    && ListPlugin.utils.getCurrentList(value).type === type;
         return isActive ?
           props.onChange(ListPlugin.changes.unwrapList(change))
           :
-          props.onChange(ListPlugin.changes.wrapInList(change, OL_LIST));
+          props.onChange(ListPlugin.changes.wrapInList(change, type));
       }
-      case CHECK_LIST: {
+      case BLOCKS.CHECK_LIST: {
         const isActive = CheckListPlugin.utils.isSelectionInList(value)
-                    && CheckListPlugin.utils.getCurrentList(value).type === CHECK_LIST;
+                    && CheckListPlugin.utils.getCurrentList(value).type === type;
         return isActive ?
           props.onChange(CheckListPlugin.changes.unwrapList(change))
           :
-          props.onChange(CheckListPlugin.changes.wrapInList(change, CHECK_LIST));
+          props.onChange(CheckListPlugin.changes.wrapInList(change, type));
       }
       default:
         return null;
@@ -152,29 +146,26 @@ function Navbar(props) {
   function renderMarkButton(type, title) {
     const isActive = hasMark(type);
     const onMouseDown = e => onClickMark(e, type);
-    const {
-      BOLD, ITALIC, HIGHLIGHT, STRIKETHROUGH, UNDERLINE, CODE,
-    } = MARKS;
 
     let Tag;
 
     switch (type) {
-      case BOLD:
+      case MARKS.BOLD:
         Tag = <FormatBold style={{ fontSize: 20 }} />;
         break;
-      case ITALIC:
+      case MARKS.ITALIC:
         Tag = <FormatItalic style={{ fontSize: 20 }} />;
         break;
-      case HIGHLIGHT:
+      case MARKS.HIGHLIGHT:
         Tag = <BorderColor style={{ fontSize: 20 }} />;
         break;
-      case STRIKETHROUGH:
+      case MARKS.STRIKETHROUGH:
         Tag = <StrikethroughS style={{ fontSize: 20 }} />;
         break;
-      case UNDERLINE:
+      case MARKS.UNDERLINE:
         Tag = <FormatUnderlined style={{ fontSize: 20 }} />;
         break;
-      case CODE:
+      case MARKS.CODE:
         Tag = <Code style={{ fontSize: 20 }} />;
         break;
       default:
@@ -199,71 +190,67 @@ function Navbar(props) {
     let isActive;
     let Tag;
 
-    const {
-      HEADING_1, HEADING_2, HEADING_3, HR, BLOCKQUOTE, CODE, TABLE, UL_LIST, OL_LIST, CHECK_LIST,
-    } = BLOCKS;
-
     switch (type) {
-      case HEADING_1:
+      case BLOCKS.HEADING_1:
       {
         isActive = hasBlock(type);
         Tag = <div style={{ height: 22, fontSize: 16, fontWeight: 500 }}>H1</div>;
         break;
       }
-      case HEADING_2:
+      case BLOCKS.HEADING_2:
       {
         isActive = hasBlock(type);
         Tag = <div style={{ height: 22, fontSize: 16, fontWeight: 500 }}>H2</div>;
         break;
       }
-      case HEADING_3:
+      case BLOCKS.HEADING_3:
       {
         isActive = hasBlock(type);
         Tag = <div style={{ height: 22, fontSize: 16, fontWeight: 500 }}>H3</div>;
         break;
       }
-      case HR:
+      case BLOCKS.HR:
       {
         isActive = hasBlock(type);
         Tag = <div style={{ height: 22, fontSize: 16, fontWeight: 500 }}>HR</div>;
         break;
       }
-      case BLOCKQUOTE:
+      case BLOCKS.BLOCKQUOTE:
       {
         isActive = BlockquotePlugin.utils.isSelectionInBlockquote(value);
         Tag = <FormatQuote style={{ fontSize: 20 }} />;
         break;
       }
-      case CODE:
+      case BLOCKS.CODE_BLOCK:
       {
-        Tag = <Code style={{ fontSize: 20 }} />;
+        Tag = <Code style={{ fontSize: 18, border: '1px solid', borderRadius: 4 }} />;
         isActive = CodePlugin.utils.isInCodeBlock(value);
         break;
       }
-      case TABLE:
+      case BLOCKS.TABLE:
       {
         isActive = TablePlugin.utils.isSelectionInTable(value);
         Tag = <GridOn style={{ fontSize: 20 }} />;
         break;
       }
-      case UL_LIST:
+      case BLOCKS.UL_LIST:
       {
         isActive = ListPlugin.utils.isSelectionInList(value)
-                    && ListPlugin.utils.getCurrentList(value).type === UL_LIST;
+                    && ListPlugin.utils.getCurrentList(value).type === type;
         Tag = <FormatListBulleted style={{ fontSize: 20 }} />;
         break;
       }
-      case OL_LIST:
+      case BLOCKS.OL_LIST:
       {
         isActive = ListPlugin.utils.isSelectionInList(value)
-                    && ListPlugin.utils.getCurrentList(value).type === OL_LIST;
+                    && ListPlugin.utils.getCurrentList(value).type === type;
         Tag = <FormatListNumbered style={{ fontSize: 20 }} />;
         break;
       }
-      case CHECK_LIST:
+      case BLOCKS.CHECK_LIST:
       {
         isActive = CheckListPlugin.utils.isSelectionInList(value)
-                    && CheckListPlugin.utils.getCurrentList(value).type === CHECK_LIST;
+                    && CheckListPlugin.utils.getCurrentList(value).type === type;
         Tag = <CheckBox style={{ fontSize: 20 }} />;
         break;
       }
@@ -285,23 +272,26 @@ function Navbar(props) {
   return (
     <div className={classes.root}>
       <AppBar position="fixed" color="inherit">
-        <Toolbar className={s.toolbar}>
-          {renderMarkButton(MARKS.BOLD, '⌘ + b')}
-          {renderMarkButton(MARKS.ITALIC, '⌘ + i')}
-          {renderMarkButton(MARKS.HIGHLIGHT, '⌘ + e')}
-          {renderMarkButton(MARKS.STRIKETHROUGH, '⌘ + d')}
-          {renderMarkButton(MARKS.UNDERLINE, '⌘ + u')}
-          {renderMarkButton(MARKS.CODE, '⌘ + shift + 9')}
-          {renderBlockButton(BLOCKS.HEADING_1, '# + space')}
-          {renderBlockButton(BLOCKS.HEADING_2, '## + space')}
-          {renderBlockButton(BLOCKS.HEADING_3, '### + space')}
-          {renderBlockButton(BLOCKS.HR, '--- + enter')}
-          {renderBlockButton(BLOCKS.BLOCKQUOTE, '> + space')}
-          {renderBlockButton(BLOCKS.CODE, '```foo.rb:ruby + enter')}
-          {renderBlockButton(BLOCKS.TABLE, '⌘ + e')}
-          {renderBlockButton(BLOCKS.UL_LIST, '- + space')}
-          {renderBlockButton(BLOCKS.OL_LIST, '1. + space')}
-          {renderBlockButton(BLOCKS.CHECK_LIST, '[] + space')}
+        <Toolbar>
+          <div className={s.editorToolbar}>
+            {renderMarkButton(MARKS.BOLD, '⌘ + b')}
+            {renderMarkButton(MARKS.ITALIC, '⌘ + i')}
+            {renderMarkButton(MARKS.HIGHLIGHT, '⌘ + e')}
+            {renderMarkButton(MARKS.STRIKETHROUGH, '⌘ + d')}
+            {renderMarkButton(MARKS.UNDERLINE, '⌘ + u')}
+            {renderMarkButton(MARKS.CODE, '⌘ + shift + 9')}
+            {renderBlockButton(BLOCKS.HEADING_1, '# + space')}
+            {renderBlockButton(BLOCKS.HEADING_2, '## + space')}
+            {renderBlockButton(BLOCKS.HEADING_3, '### + space')}
+            {renderBlockButton(BLOCKS.HR, '--- + enter')}
+            {renderBlockButton(BLOCKS.BLOCKQUOTE, '> + space')}
+            {renderBlockButton(BLOCKS.CODE_BLOCK, '```foo.rb:ruby + enter')}
+            {renderBlockButton(BLOCKS.TABLE, 'Add table')}
+            {renderBlockButton(BLOCKS.UL_LIST, '- + space')}
+            {renderBlockButton(BLOCKS.OL_LIST, '1. + space')}
+            {renderBlockButton(BLOCKS.CHECK_LIST, '[] + space')}
+          </div>
+          <Button color="primary" href="/" style={{ position: 'fixed', right: '1%' }}>Github</Button>
         </Toolbar>
       </AppBar>
     </div>

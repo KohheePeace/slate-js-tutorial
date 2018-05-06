@@ -5,6 +5,7 @@ body {
 .container {
   background: #fff;
   padding-top: 80px;
+  min-height: 100vh;
   height: 100%;
 }
 
@@ -14,6 +15,10 @@ body {
   background: #fff;
   padding: 20px;
   min-height: 60vh;
+
+  a {
+    color: #2196f3;
+  }
   
   pre {
     margin: 0;
