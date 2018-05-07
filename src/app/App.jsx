@@ -14,6 +14,7 @@ import s from './App.scss';
 import renderMark from '../slate-editor/renderer/renderMark';
 import renderNode from '../slate-editor/renderer/renderNode';
 import plugins from '../slate-editor/plugins/index';
+import schema from '../slate-editor/schema/index';
 import initialJson from '../slate-editor/initialValue.json';
 import onPasteText from '../slate-editor/helpers/onPasteText';
 import onPasteHtml from '../slate-editor/helpers/onPasteHtml';
@@ -81,6 +82,7 @@ class App extends React.Component {
                   renderMark={renderMark}
                   renderNode={renderNode}
                   plugins={plugins}
+                  schema={schema}
                 />
               </div>
             </div>
