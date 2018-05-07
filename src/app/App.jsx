@@ -74,6 +74,7 @@ class App extends React.Component {
             <div className={s.container}>
               <div className={s.editor}>
                 <Editor
+                  style={{ paddingBottom: 'calc(25rem - 100px)' }}
                   value={this.state.value}
                   onChange={this.onChange}
                   onPaste={this.onPaste}
